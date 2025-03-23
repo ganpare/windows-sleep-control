@@ -16,6 +16,13 @@ services:
       - NET_RAW
     networks:
       - app-network
+    # ヘルスチェックを追加
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 5s
 
   frontend:
     build: ./frontend
@@ -24,7 +31,10 @@ services:
     ports:
       - "3002:80"
     depends_on:
-      - backend
+      backend:
+        condition: service_healthy
+    environment:
+      - BACKEND_URL=http://backend:8000
     networks:
       - app-network
 
