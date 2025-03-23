@@ -7,4 +7,4 @@ BACKEND_URL=${BACKEND_URL:-http://backend:8000}
 sed -i "s|http://backend:8000|$BACKEND_URL|g" /etc/nginx/conf.d/default.conf
 
 # Nginxを起動
-exec "$@"
+nginx -g 'daemon off;'
