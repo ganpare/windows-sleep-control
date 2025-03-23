@@ -8,9 +8,12 @@ import psutil
 import ctypes
 from wakeonlan import send_magic_packet
 from dotenv import load_dotenv
+import pathlib
 
 # 環境変数の読み込み
-load_dotenv()
+# プロジェクトルートの.envファイルを読み込む
+root_dir = pathlib.Path(__file__).parent.parent
+load_dotenv(root_dir / ".env")
 
 app = FastAPI(title="Windows スリープ/復帰 API")
 
