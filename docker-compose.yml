@@ -6,7 +6,7 @@ services:
     container_name: windows-sleep-backend
     restart: always
     ports:
-      - "8000:8000"
+      - "9876:8000"
     volumes:
       - ./backend:/app
     environment:
@@ -29,7 +29,7 @@ services:
     container_name: windows-sleep-frontend
     restart: always
     ports:
-      - "3002:80"
+      - "8765:80"
     depends_on:
       backend:
         condition: service_healthy
