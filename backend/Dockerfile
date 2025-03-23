@@ -11,10 +11,13 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
+# エントリポイントスクリプトに実行権限を付与
+RUN chmod +x /app/entrypoint.sh
+
 EXPOSE 8000
 
 # モジュールパスを明示的に指定
 ENV PYTHONPATH=/app
 
-# app.pyを使用して実行
-CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8000"]
+# エントリポイントスクリプトを使用
+CMD ["/app/entrypoint.sh"]
