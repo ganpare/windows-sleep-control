@@ -12,6 +12,8 @@ services:
     environment:
       - WINDOWS_PC_MAC=${WINDOWS_PC_MAC}
       - WINDOWS_PC_IP=${WINDOWS_PC_IP}
+    cap_add:
+      - NET_RAW
     networks:
       - app-network
 
@@ -20,7 +22,7 @@ services:
     container_name: windows-sleep-frontend
     restart: always
     ports:
-      - "80:80"
+      - "3002:80"
     depends_on:
       - backend
     networks:

@@ -47,14 +47,21 @@ def get_status():
         param = "-n" if platform.system().lower() == "windows" else "-c"
         command = ["ping", param, "1", WINDOWS_PC_IP]
         
-        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f"Executing command: {' '.join(command)}")  # デバッグ用
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        print(f"Command output: {result.stdout}")  # デバッグ用
+        print(f"Command error: {result.stderr}")   # デバッグ用
+        print(f"Return code: {result.returncode}") # デバッグ用
         
         if result.returncode == 0:
             return {"status": "awake", "message": "Windowsマシンは起動中です"}
         else:
             return {"status": "sleep", "message": "Windowsマシンはスリープ中または接続できません"}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=f"ステータス確認中にエラーが発生しました: {str(e)}")
+        import traceback
+        error_details = traceback.format_exc()
+        print(f"Error details: {error_details}")  # デバッグ用
+        raise HTTPException(status_code=500, detail=f"ステータス確認中にエラーが発生しました: {str(e)}\n{error_details}")
 
 @app.post("/sleep", response_model=SleepResponse)
 def sleep_windows():
