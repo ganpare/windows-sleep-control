@@ -16,4 +16,5 @@ EXPOSE 8000
 # モジュールパスを明示的に指定
 ENV PYTHONPATH=/app
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+# ファイルの絶対パスを指定して実行
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--app-dir", "/app"]
