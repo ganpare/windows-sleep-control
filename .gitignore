@@ -1,0 +1,39 @@
+# 依存関係
+/frontend/node_modules
+/frontend/.pnp
+/frontend/.pnp.js
+
+# ビルド出力
+/frontend/build
+/frontend/dist
+
+# 環境変数
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# キャッシュ
+/frontend/.npm
+/frontend/.eslintcache
+/frontend/.cache
+/backend/__pycache__/
+/backend/*.py[cod]
+/backend/*$py.class
+/backend/.pytest_cache/
+
+# ログ
+/frontend/npm-debug.log*
+/frontend/yarn-debug.log*
+/frontend/yarn-error.log*
+
+# エディタ設定
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS関連
+.DS_Store
+Thumbs.db

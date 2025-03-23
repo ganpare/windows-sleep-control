@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  backend:
+    build: ./backend
+    container_name: windows-sleep-backend
+    restart: always
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+    environment:
+      - WINDOWS_PC_MAC=${WINDOWS_PC_MAC}
+      - WINDOWS_PC_IP=${WINDOWS_PC_IP}
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: windows-sleep-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
