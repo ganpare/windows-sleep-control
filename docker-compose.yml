@@ -16,13 +16,13 @@ services:
       - NET_RAW
     networks:
       - app-network
-    # ヘルスチェックを追加
+    # ヘルスチェックを修正
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
-      interval: 10s
-      timeout: 5s
-      retries: 3
-      start_period: 5s
+      test: ["CMD-SHELL", "python -c \"import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.connect(('localhost', 8000)) or exit(1); s.close()\""]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
 
   frontend:
     build: ./frontend
@@ -31,8 +31,7 @@ services:
     ports:
       - "8765:80"
     depends_on:
-      backend:
-        condition: service_healthy
+      - backend
     environment:
       - BACKEND_URL=http://backend:8000
     networks:
